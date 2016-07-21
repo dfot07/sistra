@@ -1,0 +1,40 @@
+= form_for @petitioner do |f|
+  - if @petitioner.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@petitioner.errors.count, "error")} prohibited this petitioner from being saved:"
+      %ul
+        - @petitioner.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :user
+    = f.text_field :user
+  .field
+    = f.label :request_property
+    = f.text_field :request_property
+  .field
+    = f.label :last_name
+    = f.text_field :last_name
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :document
+    = f.text_field :document
+  .field
+    = f.label :civil_status
+    = f.text_field :civil_status
+  .field
+    = f.label :address
+    = f.text_field :address
+  .field
+    = f.label :phone
+    = f.number_field :phone
+  .field
+    = f.label :email
+    = f.text_field :email
+  .field
+    = f.label :infodigital
+    = f.text_field :infodigital
+  .actions
+    = f.submit 'Save'

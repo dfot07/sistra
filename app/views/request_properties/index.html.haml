@@ -1,0 +1,31 @@
+%h1 Listing request_properties
+
+%table
+  %thead
+    %tr
+      %th User
+      %th Certificate
+      %th Request certificate
+      %th Comment
+      %th Sequence request
+      %th Sequence certificate
+      %th
+      %th
+      %th
+
+  %tbody
+    - @request_properties.each do |request_property|
+      %tr
+        %td= request_property.user
+        %td= request_property.certificate
+        %td= request_property.request_certificate
+        %td= request_property.comment
+        %td= request_property.sequence_request
+        %td= request_property.sequence_certificate
+        %td= link_to 'Show', request_property
+        %td= link_to 'Edit', edit_request_property_path(request_property)
+        %td= link_to 'Destroy', request_property, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Request property', new_request_property_path

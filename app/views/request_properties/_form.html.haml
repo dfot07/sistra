@@ -1,0 +1,19 @@
+= form_for @request_property do |f|
+  - if @request_property.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@request_property.errors.count, "error")} prohibited this request_property from being saved:"
+      %ul
+        - @request_property.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :certificate
+    = f.text_field :certificate
+  .field
+    = f.label :request_certificate
+    = f.text_field :request_certificate
+  .field
+    = f.label :comment
+    = f.text_field :comment
+  .actions
+    = f.submit 'Save'
