@@ -1,19 +1,34 @@
-= form_for @request_property do |f|
-  - if @request_property.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@request_property.errors.count, "error")} prohibited this request_property from being saved:"
-      %ul
-        - @request_property.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :certificate
-    = f.text_field :certificate
-  .field
-    = f.label :request_certificate
-    = f.text_field :request_certificate
-  .field
-    = f.label :comment
-    = f.text_field :comment
-  .actions
-    = f.submit 'Save'
+.container.signup-box
+  .row
+    .col.s12.l12
+      = simple_form_for @request_property do |f|
+        -if @request_property.errors.any?
+          #error_explanation
+            %h3.chip
+              = "#{@request_property.errors.count} errores encontrados:"
+              <i class="material-icons">close</i>
+            %ul
+              -@request_property.errors.full_messages.each do |msg|
+                %li.chip.waves-effect.waves-light.btn-large
+                  =msg
+                  <i class="material-icons">close</i>
+        .row
+          .col.s12.l12
+            .section
+              .row
+                .col.s12.l12
+                  .input-field.col.s12.l12
+                    =f.text_field :certificate
+                    %label{for: "#{:certificate}", class: "active"} Certificado de:
+                  .input-field.col.s12.l12
+                    =f.text_field :request_certificate
+                    %label{for: "#{:request_certificate}", class: "active"} Certificado requerido para:
+                  .input-field.col.s12.l12
+                    =f.text_field :comment
+                    %label{for: "#{:comment}", class: "active"} Observación:
+              .row
+                .col.s12.l6
+                  %button{class:"btn btn-fb", type:"submit", name:"action"}
+                    Guardar<i class="material-icons right">send</i>
+                .col.s12.l6
+                  =link_to "Cancelar", root_path, class: "btn btn-fb"

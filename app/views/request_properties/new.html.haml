@@ -1,5 +1,12 @@
-%h1 New request_property
+=render "layouts/navbar"
+.container.grey.lighten-3
+  .row
+    .col.s12.l12
+      .row
+        .col.s12.l12
+          %h1.center-align Nueva Solicitud
+      .row
+        .col.s12.l12
+          = render 'form'
 
-= render 'form'
-
-= link_to 'Back', request_properties_path
+=render "layouts/footer"

@@ -1,5 +1,8 @@
 class AppearersController < ApplicationController
+
   before_action :set_appearer, only: [:show, :edit, :update, :destroy]
+  before_action :set_request_property
+  before_action :authenticate_user!, except: [:index, :show]
 
   # GET /appearers
   # GET /appearers.json
@@ -24,12 +27,13 @@ class AppearersController < ApplicationController
   # POST /appearers
   # POST /appearers.json
   def create
-    @appearer = Appearer.new(appearer_params)
+    @appearer = current_user.appearer.new(appearer_params)
+    @appearer.request_property = @request_property
 
     respond_to do |format|
       if @appearer.save
-        format.html { redirect_to @appearer, notice: 'Appearer was successfully created.' }
-        format.json { render :show, status: :created, location: @appearer }
+        format.html { redirect_to @appearer.request_property, notice: 'Appearer was successfully created.' }
+        format.json { render :show, status: :created, location: @appearer.request_property }
       else
         format.html { render :new }
         format.json { render json: @appearer.errors, status: :unprocessable_entity }
@@ -42,8 +46,8 @@ class AppearersController < ApplicationController
   def update
     respond_to do |format|
       if @appearer.update(appearer_params)
-        format.html { redirect_to @appearer, notice: 'Appearer was successfully updated.' }
-        format.json { render :show, status: :ok, location: @appearer }
+        format.html { redirect_to @appearer.request_property, notice: 'Appearer was successfully updated.' }
+        format.json { render :show, status: :ok, location: @appearer.request_property }
       else
         format.html { render :edit }
         format.json { render json: @appearer.errors, status: :unprocessable_entity }
@@ -56,7 +60,7 @@ class AppearersController < ApplicationController
   def destroy
     @appearer.destroy
     respond_to do |format|
-      format.html { redirect_to appearers_url, notice: 'Appearer was successfully destroyed.' }
+      format.html { redirect_to request_property_path(@request_property), notice: 'Appearer was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -65,6 +69,10 @@ class AppearersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_appearer
       @appearer = Appearer.find(params[:id])
+    end
+
+    def set_request_property
+      @request_property = RequestProperty.find(params[:request_property_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

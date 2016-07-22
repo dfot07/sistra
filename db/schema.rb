@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721020631) do
+ActiveRecord::Schema.define(version: 20160722022555) do
 
   create_table "appearers", force: :cascade do |t|
     t.integer  "user_id"
@@ -67,10 +67,12 @@ ActiveRecord::Schema.define(version: 20160721020631) do
     t.string   "certificate"
     t.string   "request_certificate"
     t.string   "comment"
-    t.string   "sequence_request"
-    t.string   "sequence_certificate"
+    t.integer  "sequence_request"
+    t.integer  "sequence_certificate"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "date_sequence"
+    t.integer  "date_certificate"
     t.index ["user_id"], name: "index_request_properties_on_user_id"
   end
 

@@ -1,8 +1,8 @@
 class RequestPropertiesController < ApplicationController
-  before_action :set_request_property, only: [:show, :edit, :update, :destroy]
+  before_action :set_request_property, only: [:show, :edit, :update, :destroy, :print]
   before_action :set_request_sequence_property
   before_action :set_property_certificate_sequence
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :print]
 
   # GET /request_properties
   # GET /request_properties.json
@@ -20,6 +20,9 @@ class RequestPropertiesController < ApplicationController
     @request_property = RequestProperty.new
   end
 
+  def print
+  end
+
   # GET /request_properties/1/edit
   def edit
   end
@@ -30,10 +33,13 @@ class RequestPropertiesController < ApplicationController
     @request_property = current_user.request_property.new(request_property_params)
     @request_property.sequence_request = @request_sequence_property.sequence
     @request_property.sequence_certificate = @property_certificate_sequence.sequence
+    @request_property.date_sequence = @request_sequence_property.date_sequence
+    @request_property.date_certificate = @property_certificate_sequence.date_sequence
 
     respond_to do |format|
       if @request_property.save
-        @request_sequence_property.update(sequence: @request_sequence_property.sequence+1)
+        @request_sequence_property.update(sequence: @request_property.sequence_request+1)
+        @property_certificate_sequence.update(sequence: @request_property.sequence_certificate+1)
         format.html { redirect_to @request_property, notice: 'Request property was successfully created.' }
         format.json { render :show, status: :created, location: @request_property }
       else

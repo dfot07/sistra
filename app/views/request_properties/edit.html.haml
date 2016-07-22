@@ -1,7 +1,12 @@
-%h1 Editing request_property
+=render "layouts/navbar"
+.container.grey.lighten-3
+  .row
+    .col.s12.l12
+      .row
+        .col.s12.l12
+          %h1.center-align Editar Solicitud
+      .row
+        .col.s12.l12
+          = render 'form'
 
-= render 'form'
-
-= link_to 'Show', @request_property
-\|
-= link_to 'Back', request_properties_path
+=render "layouts/footer"
